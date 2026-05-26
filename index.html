@@ -47,7 +47,6 @@
 
     /* --- Section 1: Hero --- */
     #hero { text-align: center; padding: 60px 0 20px; }
-    /* 吉祥物樣式微調 */
     .mascot { width: 130px; animation: float 4s ease-in-out infinite; margin-bottom: 20px; object-fit: contain; }
     .hero-title { font-size: 32px; font-weight: 900; margin-bottom: 15px; display: flex; align-items: center; justify-content: center; gap: 10px; }
     .hero-title span.highlight { color: var(--green-main); border-bottom: 4px solid #A5D6A7; }
@@ -272,7 +271,8 @@
     <div class="modal-content">
       <span class="modal-close" onclick="closeModals()">✕</span>
       <div style="text-align:center; margin-bottom: 10px;">
-        <img src="https://img.icons8.com/fluency/144/box.png" class="mascot" alt="飽飽箱吉祥物">
+        <img src="https://img.icons8.com/fluency/144/box.png" style="width: 75px; object-fit: contain;" alt="飽飽箱吉祥物">
+      </div>
       <h2 style="text-align:center; margin-bottom: 15px; font-weight: 900;">感謝您的愛心！</h2>
       
       <div class="modal-body-box">
@@ -283,7 +283,6 @@
         <p>若循環箱計畫未來落地施行，我們將優先通知您！</p>
         <p>再次感謝您的善良與支持！</p>
       </div>
-      
       <button class="btn-main" onclick="closeModals()">💖 謝謝你，Bao Bao 我知道了！</button>
     </div>
   </div>
@@ -315,8 +314,7 @@
         <div class="stat-item"><span class="stat-val" id="st-boxes">0</span><span class="stat-lbl">累計箱數</span></div>
         <div class="stat-item" style="grid-column: span 2;"><span class="stat-val" id="st-money">0</span><span class="stat-lbl">募資金額</span></div>
       </div>
-      <div id="feedback-results" style="margin-top:25px; font-size:13px; border-top:1px solid #eee; padding-top:15px;">
-        </div>
+      <div id="feedback-results" style="margin-top:25px; font-size:13px; border-top:1px solid #eee; padding-top:15px;"></div>
       <button id="reset-btn" class="hidden-reset" onclick="resetAllData()">⚠️ 重置所有數據</button>
     </div>
   </div>
@@ -325,27 +323,36 @@
     const STORAGE_KEY = 'refood_stats_data';
     let currentQty = 1;
 
-   // --- 數據邏輯（安全防當掉版本） ---
-let backupData = { views: 0, clicks: 0, boxes: 0, money: 0, igClicks: 0, reasons: { price: 0, mechanism: 0, aware: 0 } };
+    // --- 數據邏輯（安全防當掉版本） ---
+    let backupData = { views: 0, clicks: 0, boxes: 0, money: 0, igClicks: 0, reasons: { price: 0, mechanism: 0, aware: 0 } };
 
-function getStats() {
-  try {
-    const saved = localStorage.getItem(STORAGE_KEY);
-    return saved ? JSON.parse(saved) : { views: 0, clicks: 0, boxes: 0, money: 0, igClicks: 0, reasons: { price: 0, mechanism: 0, aware: 0 } };
-  } catch (e) {
-    // 如果瀏覽器封鎖了 localStorage，就用記憶體變數頂替，確保網頁不崩潰
-    console.warn("LocalStorage 被瀏覽器封鎖，啟用備用儲存機制");
-    return backupData;
-  }
-}
+    function getStats() {
+      try {
+        const saved = localStorage.getItem(STORAGE_KEY);
+        return saved ? JSON.parse(saved) : { views: 0, clicks: 0, boxes: 0, money: 0, igClicks: 0, reasons: { price: 0, mechanism: 0, aware: 0 } };
+      } catch (e) {
+        console.warn("LocalStorage 被瀏覽器封鎖，啟用備用儲存機制");
+        return backupData;
+      }
+    }
 
-function saveStats(data) {
-  try {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
-  } catch (e) {
-    backupData = data;
-  }
-}
+    function saveStats(data) {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+      } catch (e) {
+        backupData = data;
+      }
+    }
+
+    // 修正關鍵：補回漏掉的網頁初始化載入函式，防止數據卡死
+    window.onload = () => {
+      let data = getStats();
+      if (!sessionStorage.getItem('refood_viewed')) {
+        data.views++;
+        saveStats(data);
+        sessionStorage.setItem('refood_viewed', 'true');
+      }
+    };
 
     function updateQty(val) {
       currentQty = Math.max(1, currentQty + val);
