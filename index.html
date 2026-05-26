@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>認養飽飽箱 🌿 循環箱 × 食物銀行</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --cream-bg: #F9F7F2;
+      --white: #FFFFFF;
+      --green-main: #5BAE6B;
+      --orange-main: #FFAB40;
+      --orange-dark: #FF9800;
+      --brown-text: #5D4037;
+      --gray-light: #E0E0E0;
+      --gray-text: #757575;
+      --shadow: 0 10px 30px rgba(0,0,0,0.05);
+      --card-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Noto Sans TC', sans-serif;
+      background-color: var(--cream-bg);
+      color: var(--brown-text);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    .container { max-width: 1000px; margin: 0 auto; padding: 0 20px; }
+
+    /* --- 動畫定義 --- */
+    @keyframes wiggle {
+      0%, 100% { transform: rotate(0deg); }
+      25% { transform: rotate(-5deg); }
+      75% { transform: rotate(5deg); }
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    /* --- Section 1: Hero --- */
+    #hero { text-align: center; padding: 60px 0 20px; }
+    /* 吉祥物樣式微調 */
+    .mascot { width: 130px; animation: float 4s ease-in-out infinite; margin-bottom: 20px; object-fit: contain; }
+    .hero-title { font-size: 32px; font-weight: 900; margin-bottom: 15px; display: flex; align-items: center; justify-content: center; gap: 10px; }
+    .hero-title span.highlight { color: var(--green-main); border-bottom: 4px solid #A5D6A7; }
+    
+    .hero-speech-bubble {
+      background: var(--white);
+      border: 2px solid #E8F5E9;
+      border-radius: 40px;
+      padding: 20px 40px;
+      display: inline-block;
+      box-shadow: var(--shadow);
+      position: relative;
+      font-size: 16px;
+      max-width: 80%;
+    }
+    .hero-speech-bubble::after {
+      content: ''; position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
+      border-left: 10px solid transparent; border-right: 10px solid transparent; border-bottom: 12px solid var(--white);
+    }
+
+    /* --- Section 2: Intro (社會關懷) --- */
+    #intro { padding: 40px 0; }
+    .intro-card {
+      background: #EDF7EE;
+      border-radius: 24px;
+      padding: 30px;
+      border: 1px dashed var(--green-main);
+      text-align: center;
+    }
+    .intro-card h2 { font-size: 22px; font-weight: 900; color: #2E7D32; margin-bottom: 15px; }
+    .intro-text { text-align: justify; font-size: 15px; color: var(--brown-text); line-height: 1.8; }
+
+    /* --- Section 3: Concepts --- */
+    .section-title { text-align: center; font-size: 28px; font-weight: 900; margin: 40px 0 30px; }
+    .cards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+    .concept-card {
+      background: #F2EBE4;
+      border-radius: 24px;
+      padding: 30px 20px;
+      text-align: center;
+      transition: transform 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+    .concept-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 6px; }
+    .concept-card.c1::before { background: #81C784; }
+    .concept-card.c2::before { background: #FFB74D; }
+    .concept-card.c3::before { background: #FF8A65; }
+    
+    .icon-wiggle { font-size: 45px; display: block; margin-bottom: 15px; animation: wiggle 3s ease-in-out infinite; }
+    .concept-title { font-size: 18px; font-weight: 900; margin-bottom: 12px; }
+    .concept-desc { font-size: 14px; color: #6D4C41; text-align: justify; }
+
+    /* --- Section 4: CTA --- */
+    .cta-box {
+      background: var(--white);
+      border-radius: 32px;
+      padding: 40px;
+      margin: 60px 0;
+      text-align: center;
+      box-shadow: var(--card-shadow);
+      position: relative;
+    }
+    .cta-badge {
+      background: #E8F5E9; color: #2E7D32;
+      padding: 5px 15px; border-radius: 20px; font-size: 13px; font-weight: 700;
+      display: inline-block; margin-bottom: 15px;
+    }
+    .price-tag { font-size: 48px; font-weight: 900; margin-bottom: 5px; }
+    .price-tag span { font-size: 18px; color: var(--gray-text); font-weight: 400; }
+    
+    .qty-selector {
+      background: #F5EBE0;
+      border-radius: 12px;
+      display: inline-flex;
+      align-items: center;
+      gap: 30px;
+      padding: 10px 30px;
+      margin: 25px 0;
+    }
+    .qty-btn {
+      background: var(--orange-main); color: white; border: none;
+      width: 32px; height: 32px; border-radius: 8px; font-size: 20px; cursor: pointer;
+    }
+    .qty-val { font-size: 24px; font-weight: 900; color: #2E7D32; }
+
+    .btn-main {
+      background: linear-gradient(135deg, #FFB74D, #FF9800);
+      color: white; border: none; border-radius: 50px;
+      padding: 18px 0; width: 100%; font-size: 18px; font-weight: 900;
+      cursor: pointer; box-shadow: 0 10px 20px rgba(255, 152, 0, 0.3);
+      transition: 0.3s; display: block; margin-bottom: 15px;
+    }
+    .btn-main:active { transform: scale(0.98); }
+    .btn-sub {
+      background: #E0E0E0; color: #757575; border: none; border-radius: 50px;
+      padding: 12px 0; width: 100%; font-size: 14px; cursor: pointer;
+    }
+
+    /* --- Instagram Button --- */
+    .ig-container { text-align: center; margin-bottom: 60px; }
+    .ig-btn {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+      color: white; padding: 12px 25px; border-radius: 12px; text-decoration: none;
+      font-weight: 700; box-shadow: 0 4px 15px rgba(220, 39, 67, 0.3);
+    }
+
+    /* --- Footer --- */
+    footer { background: #4E342E; color: #D7CCC8; padding: 40px 20px; text-align: center; font-size: 13px; }
+    .moon-icon { cursor: pointer; display: inline-block; margin-top: 10px; transition: 0.3s; }
+    .moon-icon:hover { transform: scale(1.2) rotate(15deg); }
+
+    /* --- Modal --- */
+    .modal-overlay {
+      position: fixed; inset: 0; background: rgba(0,0,0,0.5); backdrop-filter: blur(5px);
+      display: none; align-items: center; justify-content: center; z-index: 1000; padding: 20px;
+    }
+    .modal-overlay.active { display: flex; }
+    .modal-content {
+      background: white; border-radius: 24px; padding: 30px; width: 100%; max-width: 900px;
+      position: relative; box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+    }
+    .modal-close { position: absolute; top: 15px; right: 15px; cursor: pointer; font-size: 20px; color: #aaa; }
+    
+    .modal-body-box { background: #FDF5E6; border-radius: 16px; padding: 25px; border-left: 5px solid var(--orange-main); margin: 20px 0; font-size: 15px; text-align: justify; line-height: 1.8; }
+    .modal-body-box p { margin-bottom: 12px; }
+    .modal-body-box p:last-child { margin-bottom: 0; }
+
+    /* --- Dashboard --- */
+    .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 20px; }
+    .stat-item { background: #F1F8E9; padding: 12px 5px; border-radius: 12px; text-align: center; border: 1px solid #C8E6C9; }
+    .stat-val { display: block; font-size: 20px; font-weight: 900; color: #2E7D32; }
+    .stat-lbl { font-size: 11px; color: var(--gray-text); }
+    
+    .progress-bar-bg { background: #eee; border-radius: 8px; height: 12px; width: 100%; margin-top: 4px; overflow: hidden; }
+    .progress-bar-fill { background: var(--orange-main); height: 100%; width: 0%; transition: width 0.5s; }
+
+    .hidden-reset {
+      margin-top: 20px; padding: 10px; width: 100%; background: #FFEBEE; color: #C62828;
+      border: 1px solid #FFCDD2; border-radius: 8px; cursor: pointer; display: none;
+    }
+  </style>
+</head>
+<body>
+
+  <section id="hero" class="container">
+    <img src="https://img.icons8.com/fluency/144/box.png" class="mascot" alt="飽飽箱吉祥物">
+    <h1 class="hero-title">🌿 <span>飽飽箱</span> × 食物銀行 × <span class="highlight">永續行動</span></h1>
+    <div class="hero-speech-bubble">
+      嗨！我是飽飽箱，我今天也想裝滿溫飽、重複循環，送去需要的地方。<br>
+      你要認養我嗎？ 🥺
+    </div>
+  </section>
+
+  <section id="intro" class="container">
+    <div class="intro-card">
+      <h2>把愛裝進循環箱：一份不製造浪費的社會關懷</h2>
+      <p class="intro-text">
+        我們全面將「可重複使用的循環箱」導入食物銀行的配送流程，打破過去消耗大量一次性紙箱的傳統。
+        透過「回收 ⇄ 再裝載 ⇄ 再配送」的永續循環，我們不僅要把物資精準送到需要的人手中，更要讓這份社會關懷做到「零廢棄」，開創低碳、環保的綠色公益新可能！
+      </p>
+    </div>
+  </section>
+
+  <section id="concepts" class="container">
+    <h2 class="section-title">為什麼飽飽箱很重要？</h2>
+    <div class="cards-grid">
+      <div class="concept-card c1">
+        <span class="icon-wiggle">♻️</span>
+        <h3 class="concept-title">循環取代拋棄</h3>
+        <p class="concept-desc">傳統紙箱往往用一次就丟，即使改用循環紙箱，也只能承受約 7 次的旅程。於是，飽飽箱選擇高耐用的 PP 材質——可重複使用 30 次！</p>
+      </div>
+      <div class="concept-card c2">
+        <span class="icon-wiggle">🍱</span>
+        <h3 class="concept-title">精準送愛不浪費</h3>
+        <p class="concept-desc">食物銀行精準媒合物資與需求家庭，飽飽箱讓每一份食物都能安全、完整地抵達需要的手中。</p>
+      </div>
+      <div class="concept-card c3">
+        <span class="icon-wiggle">🤝</span>
+        <h3 class="concept-title">你的認養，讓愛流動</h3>
+        <p class="concept-desc">每個建置資金只要 50 元。讓飽飽箱持續在城市之間旅行，把溫暖從有餘的地方，帶到最需要的角落。</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="cta" class="container">
+    <div class="cta-box">
+      <div class="cta-badge">🎁 認養方案</div>
+      <div class="price-tag">NT$ 50 <span>/ 個</span></div>
+      <p style="font-size: 13px; color: #888;">每個建置資金只要 50 元</p>
+      
+      <div class="qty-selector">
+        <button class="qty-btn" onclick="updateQty(-1)">−</button>
+        <span class="qty-val" id="qty">1</span>
+        <button class="qty-btn" onclick="updateQty(1)">+</button>
+      </div>
+
+      <div style="margin-bottom: 20px; font-weight: 700; color: #558B2F;">
+        認養總金額：NT$ <span id="total">50</span>
+      </div>
+
+      <button class="btn-main" id="btn-adopt" onclick="handleAdopt()">📦 帶飽飽箱回家！</button>
+      <button class="btn-sub" onclick="handleDecline()">暫時不要，但我精神支持！</button>
+    </div>
+
+    <div class="ig-container">
+      <a href="https://www.instagram.com/refoodbox_atcc?igsh=c2V0dzUwNXRmbm1i" target="_blank" class="ig-btn" onclick="handleIgClick()">
+        <img src="https://cdntesting.com/images/instagram-icon.png" alt="IG" onerror="this.onerror=null; this.src='https://img.icons8.com/color/24/instagram-new--v1.png'; "> 追蹤飽飽箱 Instagram
+      </a>
+    </div>
+  </section>
+
+  <footer>
+    <p><strong>【代替月亮解決你的痛點】🌙</strong> 團隊出品</p>
+    <p>本網頁為商業競賽煙霧測試（Smoke Test）實作，不涉及真實收費。</p>
+    <p>© 2025 Team 代替月亮解決你的痛點 ✨</p>
+    <span class="moon-icon" onclick="openStats()">🌙 點擊查看統計數據</span>
+  </footer>
+
+  <div id="modal-success" class="modal-overlay">
+    <div class="modal-content">
+      <span class="modal-close" onclick="closeModals()">✕</span>
+      <div style="text-align:center; margin-bottom: 10px;">
+        <img src="https://cdntesting.com/images/baobao-green-icon.png" style="width: 75px; object-fit: contain;" alt="Bao Bao" onerror="this.onerror=null; this.src='https://i.ibb.co/6R0DffQZ/baobao-mascot.png'; ">
+      </div>
+      <h2 style="text-align:center; margin-bottom: 15px; font-weight: 900;">感謝您的愛心！</h2>
+      
+      <div class="modal-body-box">
+        <p><strong>這是一封來自 Bao Bao 的邀請 ✨</strong></p>
+        <p>嗨，我是 Bao Bao！謝謝你願意點下這一步！看到這裡，先別緊張，<strong>您的荷包非常安全</strong>，我們並不會在此體驗環節收取任何費用。</p>
+        <p>我們是正在參加 ATCC 商業競賽的團隊<strong>【代替月亮解決你的痛點】🌙</strong>。</p>
+        <p>為了驗證「大眾是否真的願意透過小額認養循環箱，來支持食物銀行配送計畫」，我們設計了這個小小的真實情境。您的這一次點擊與認養意願，對我們來說是<strong>無敵巨大的鼓勵與驗證！</strong>代表我們的商業模式與創意真的能打動人心、發揮社會影響力。</p>
+        <p>若循環箱計畫未來落地施行，我們將優先通知您！</p>
+        <p>再次感謝您的善良與支持！</p>
+      </div>
+      
+      <button class="btn-main" onclick="closeModals()">💖 謝謝你，Bao Bao 我知道了！</button>
+    </div>
+  </div>
+
+  <div id="modal-decline" class="modal-overlay">
+    <div class="modal-content" id="decline-content-box" style="max-width: 500px;">
+      <span class="modal-close" onclick="closeModals()">✕</span>
+      <div style="text-align:center; font-size: 40px; margin-bottom: 10px;">🦖</div>
+      <h2 style="text-align:center; margin-bottom: 15px;">沒關係的！</h2>
+      <p style="font-size:14px; text-align:center; margin-bottom:15px;">您的回饋能幫我們變得更好，是什麼原因讓您目前不想認養呢？</p>
+      
+      <div style="margin-bottom: 20px;">
+        <label style="display:block; margin-bottom:10px; cursor:pointer;"><input type="checkbox" name="reason" value="price"> 認養金額（50元）累積起來有點太高了</label>
+        <label style="display:block; margin-bottom:10px; cursor:pointer;"><input type="checkbox" name="reason" value="mechanism"> 不太清楚循環箱實際上是怎麼運作的</label>
+        <label style="display:block; margin-bottom:10px; cursor:pointer;"><input type="checkbox" name="reason" value="aware"> 平常比較少接觸食物銀行的議題</label>
+      </div>
+      <button class="btn-main" onclick="submitFeedback()">🌿 送出回饋</button>
+    </div>
+  </div>
+
+  <div id="modal-stats" class="modal-overlay">
+    <div class="modal-content" style="max-width: 550px;">
+      <span class="modal-close" onclick="closeModals()">✕</span>
+      <h2 id="stats-title" style="font-size:18px; text-align:center; margin-bottom: 10px; cursor: pointer;">📊 實時統計數據</h2>
+      <div class="stats-grid">
+        <div class="stat-item"><span class="stat-val" id="st-views">0</span><span class="stat-lbl">網頁瀏覽</span></div>
+        <div class="stat-item"><span class="stat-val" id="st-clicks">0</span><span class="stat-lbl">認養點擊</span></div>
+        <div class="stat-item"><span class="stat-val" id="st-ig">0</span><span class="stat-lbl">IG 點擊</span></div>
+        <div class="stat-item"><span class="stat-val" id="st-boxes">0</span><span class="stat-lbl">累計箱數</span></div>
+        <div class="stat-item" style="grid-column: span 2;"><span class="stat-val" id="st-money">0</span><span class="stat-lbl">募資金額</span></div>
+      </div>
+      <div id="feedback-results" style="margin-top:25px; font-size:13px; border-top:1px solid #eee; padding-top:15px;">
+        </div>
+      <button id="reset-btn" class="hidden-reset" onclick="resetAllData()">⚠️ 重置所有數據</button>
+    </div>
+  </div>
+
+  <script>
+    const STORAGE_KEY = 'refood_stats_data';
+    let currentQty = 1;
+
+    function getStats() {
+      const saved = localStorage.getItem(STORAGE_KEY);
+      return saved ? JSON.parse(saved) : { views: 0, clicks: 0, boxes: 0, money: 0, igClicks: 0, reasons: { price: 0, mechanism: 0, aware: 0 } };
+    }
+
+    function saveStats(data) {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+    }
+
+    window.onload = () => {
+      let data = getStats();
+      if (!sessionStorage.getItem('refood_viewed')) {
+        data.views++;
+        saveStats(data);
+        sessionStorage.setItem('refood_viewed', 'true');
+      }
+    };
+
+    function updateQty(val) {
+      currentQty = Math.max(1, currentQty + val);
+      document.getElementById('qty').innerText = currentQty;
+      document.getElementById('total').innerText = currentQty * 50;
+    }
+
+    function handleAdopt() {
+      const btn = document.getElementById('btn-adopt');
+      btn.innerText = "⌛ 處理中...";
+      btn.disabled = true;
+
+      setTimeout(() => {
+        let data = getStats();
+        data.clicks++;
+        data.boxes += currentQty;
+        data.money += (currentQty * 50);
+        saveStats(data);
+        
+        btn.innerText = "📦 帶飽飽箱回家！";
+        btn.disabled = false;
+        document.getElementById('modal-success').classList.add('active');
+      }, 400);
+    }
+
+    function handleDecline() {
+      document.getElementById('modal-decline').classList.add('active');
+    }
+
+    function handleIgClick() {
+      let data = getStats();
+      if (!data.igClicks) data.igClicks = 0;
+      data.igClicks++;
+      saveStats(data);
+    }
+
+    function submitFeedback() {
+      let data = getStats();
+      const checkboxes = document.querySelectorAll('input[name="reason"]:checked');
+      checkboxes.forEach(cb => {
+        data.reasons[cb.value]++;
+      });
+      saveStats(data);
+      
+      const box = document.getElementById('decline-content-box');
+      const originalHtml = box.innerHTML;
+      box.innerHTML = `<div style="text-align:center; padding: 40px 0;"><span style="font-size:40px;">🌿</span><h3 style="margin-top:15px;">謝謝您的寶貴意見！</h3><p style="color:#757575; font-size:14px; margin-top:5px;">我們會努力讓計畫更完善。</p></div>`;
+      
+      setTimeout(() => {
+        closeModals();
+        setTimeout(() => { box.innerHTML = originalHtml; }, 300);
+      }, 1800);
+    }
+
+    function closeModals() {
+      document.querySelectorAll('.modal-overlay').forEach(m => m.classList.remove('active'));
+    }
+
+    let titleClickCount = 0;
+    function openStats() {
+      const data = getStats();
+      document.getElementById('st-views').innerText = data.views;
+      document.getElementById('st-clicks').innerText = data.clicks;
+      document.getElementById('st-boxes').innerText = data.boxes;
+      document.getElementById('st-ig').innerText = data.igClicks || 0;
+      document.getElementById('st-money').innerText = `NT$ ${data.money.toLocaleString()}`;
+      
+      const r = data.reasons;
+      const totalReasons = (r.price + r.mechanism + r.aware) || 1;
+      
+      const p1 = Math.round((r.price / totalReasons) * 100);
+      const p2 = Math.round((r.mechanism / totalReasons) * 100);
+      const p3 = Math.round((r.aware / totalReasons) * 100);
+
+      document.getElementById('feedback-results').innerHTML = `
+        <strong style="display:block; margin-bottom:10px; font-size:14px;">💡 拒絕認養原因分析 (共 ${r.price + r.mechanism + r.aware} 筆)</strong>
+        <div style="margin-bottom:10px;">
+          <span>金額偏高 (${r.price} 票 / ${p1}%)</span>
+          <div class="progress-bar-bg"><div class="progress-bar-fill" style="width: ${p1}%"></div></div>
+        </div>
+        <div style="margin-bottom:10px;">
+          <span>運作機制不明確 (${r.mechanism} 票 / ${p2}%)</span>
+          <div class="progress-bar-bg"><div class="progress-bar-fill" style="width: ${p2}%"></div></div>
+        </div>
+        <div style="margin-bottom:10px;">
+          <span>鮮少關注此議題 (${r.aware} 票 / ${p3}%)</span>
+          <div class="progress-bar-bg"><div class="progress-bar-fill" style="width: ${p3}%"></div></div>
+        </div>
+      `;
+
+      document.getElementById('modal-stats').classList.add('active');
+      
+      document.getElementById('stats-title').onclick = () => {
+        titleClickCount++;
+        if (titleClickCount >= 5) {
+          document.getElementById('reset-btn').style.display = 'block';
+        }
+      };
+    }
+
+    function resetAllData() {
+      if (confirm('確定要清除所有測試數據嗎？（此動作不可逆）')) {
+        localStorage.removeItem(STORAGE_KEY);
+        sessionStorage.clear();
+        location.reload();
+      }
+    }
+  </script>
+</body>
+</html>
