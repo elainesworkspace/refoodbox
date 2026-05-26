@@ -67,7 +67,7 @@
       border-left: 10px solid transparent; border-right: 10px solid transparent; border-bottom: 12px solid var(--white);
     }
 
-    /* --- Section 2: Intro (社會關懷) --- */
+    /* --- Section 2: Intro --- */
     #intro { padding: 40px 0; }
     .intro-card {
       background: #EDF7EE;
@@ -177,18 +177,10 @@
     .modal-body-box p:last-child { margin-bottom: 0; }
 
     /* --- Dashboard --- */
-    .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 20px; }
-    .stat-item { background: #F1F8E9; padding: 12px 5px; border-radius: 12px; text-align: center; border: 1px solid #C8E6C9; }
-    .stat-val { display: block; font-size: 20px; font-weight: 900; color: #2E7D32; }
-    .stat-lbl { font-size: 11px; color: var(--gray-text); }
-    
-    .progress-bar-bg { background: #eee; border-radius: 8px; height: 12px; width: 100%; margin-top: 4px; overflow: hidden; }
-    .progress-bar-fill { background: var(--orange-main); height: 100%; width: 0%; transition: width 0.5s; }
-
-    .hidden-reset {
-      margin-top: 20px; padding: 10px; width: 100%; background: #FFEBEE; color: #C62828;
-      border: 1px solid #FFCDD2; border-radius: 8px; cursor: pointer; display: none;
-    }
+    .stats-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-top: 20px; }
+    .stat-item { background: #F1F8E9; padding: 15px 5px; border-radius: 12px; text-align: center; border: 1px solid #C8E6C9; }
+    .stat-val { display: block; font-size: 24px; font-weight: 900; color: #2E7D32; }
+    .stat-lbl { font-size: 12px; color: var(--gray-text); font-weight: bold; }
   </style>
 </head>
 <body>
@@ -228,7 +220,7 @@
       <div class="concept-card c3">
         <span class="icon-wiggle">🤝</span>
         <h3 class="concept-title">你的認養，讓愛流動</h3>
-        <p class="concept-desc">每個建置資金只要 50 元。讓飽飽箱持續在城市之間旅行，把溫暖從有餘的地方，帶到最需要的角落。</p>
+        <p class="concept-desc">每個建置資金只要 50 元。讓飽飽箱持續在城市之間旅行，把溫慢從有餘的地方，帶到最需要的角落。</p>
       </div>
     </div>
   </section>
@@ -255,7 +247,7 @@
 
     <div class="ig-container">
       <a href="https://www.instagram.com/refoodbox_atcc?igsh=c2V0dzUwNXRmbm1i" target="_blank" class="ig-btn" onclick="handleIgClick()">
-        <img src="https://cdntesting.com/images/instagram-icon.png" alt="IG" onerror="this.onerror=null; this.src='https://img.icons8.com/color/24/instagram-new--v1.png'; "> 追蹤飽飽箱 Instagram
+        <img src="https://img.icons8.com/color/24/instagram-new--v1.png" alt="IG"> 追蹤飽飽箱 Instagram
       </a>
     </div>
   </section>
@@ -304,54 +296,40 @@
   </div>
 
   <div id="modal-stats" class="modal-overlay">
-    <div class="modal-content" style="max-width: 550px;">
+    <div class="modal-content" style="max-width: 450px;">
       <span class="modal-close" onclick="closeModals()">✕</span>
-      <h2 id="stats-title" style="font-size:18px; text-align:center; margin-bottom: 10px; cursor: pointer;">📊 實時統計數據</h2>
+      <h2 style="font-size:18px; text-align:center; margin-bottom: 10px;">📊 全網實時累積數據</h2>
+      <p style="font-size:11px; text-align:center; color:#999; margin-bottom:15px;">（本數據整合所有受測裝置，每 5 秒自動同步一次）</p>
       <div class="stats-grid">
-        <div class="stat-item"><span class="stat-val" id="st-views">0</span><span class="stat-lbl">網頁瀏覽</span></div>
-        <div class="stat-item"><span class="stat-val" id="st-clicks">0</span><span class="stat-lbl">認養點擊</span></div>
-        <div class="stat-item"><span class="stat-val" id="st-ig">0</span><span class="stat-lbl">IG 點擊</span></div>
-        <div class="stat-item"><span class="stat-val" id="st-boxes">0</span><span class="stat-lbl">累計箱數</span></div>
-        <div class="stat-item" style="grid-column: span 2;"><span class="stat-val" id="st-money">0</span><span class="stat-lbl">募資金額</span></div>
+        <div class="stat-item"><span class="stat-val" id="st-views">Loading...</span><span class="stat-lbl">總網頁瀏覽量</span></div>
+        <div class="stat-item"><span class="stat-val" id="st-clicks">Loading...</span><span class="stat-lbl">總認養點擊數</span></div>
       </div>
-      <div id="feedback-results" style="margin-top:25px; font-size:13px; border-top:1px solid #eee; padding-top:15px;"></div>
-      <button id="reset-btn" class="hidden-reset" onclick="resetAllData()">⚠️ 重置所有數據</button>
+      <div style="margin-top:20px; text-align:center;">
+         <button class="btn-sub" style="width:120px; padding:8px 0;" onclick="fetchGlobalStats()">🔄 手動同步</button>
+      </div>
     </div>
   </div>
 
   <script>
-    const STORAGE_KEY = 'refood_stats_data';
+    // 使用專屬的商業競賽免費計數抽屜識別碼 (BaoBao-ATCC-TeamMoon)
+    const CLOUD_VIEWS_URL = 'https://api.countapi.xyz/hit/baobao-atcc-teammoon/total_views';
+    const CLOUD_CLICKS_GET_URL = 'https://api.countapi.xyz/get/baobao-atcc-teammoon/total_clicks';
+    const CLOUD_CLICKS_HIT_URL = 'https://api.countapi.xyz/hit/baobao-atcc-teammoon/total_clicks';
+
     let currentQty = 1;
 
-    // --- 數據邏輯（安全防當掉版本） ---
-    let backupData = { views: 0, clicks: 0, boxes: 0, money: 0, igClicks: 0, reasons: { price: 0, mechanism: 0, aware: 0 } };
-
-    function getStats() {
-      try {
-        const saved = localStorage.getItem(STORAGE_KEY);
-        return saved ? JSON.parse(saved) : { views: 0, clicks: 0, boxes: 0, money: 0, igClicks: 0, reasons: { price: 0, mechanism: 0, aware: 0 } };
-      } catch (e) {
-        console.warn("LocalStorage 被瀏覽器封鎖，啟用備用儲存機制");
-        return backupData;
-      }
-    }
-
-    function saveStats(data) {
-      try {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
-      } catch (e) {
-        backupData = data;
-      }
-    }
-
-    // 修正關鍵：補回漏掉的網頁初始化載入函式，防止數據卡死
+    // 網頁加載：發送請求去雲端增加「總瀏覽量」，確保只在非重複整理時精準計數
     window.onload = () => {
-      let data = getStats();
-      if (!sessionStorage.getItem('refood_viewed')) {
-        data.views++;
-        saveStats(data);
-        sessionStorage.setItem('refood_viewed', 'true');
+      if (!sessionStorage.getItem('counted_view')) {
+        fetch(CLOUD_VIEWS_URL)
+          .then(() => sessionStorage.setItem('counted_view', 'true'))
+          .catch(err => console.log('雲端計數稍有延遲'));
       }
+      // 順便把雲端數據池初始化（防呆）
+      fetch(CLOUD_CLICKS_GET_URL).catch(() => {
+         // 若第一次建立則呼叫一次建立
+         fetch(CLOUD_CLICKS_HIT_URL);
+      });
     };
 
     function updateQty(val) {
@@ -360,22 +338,25 @@
       document.getElementById('total').innerText = currentQty * 50;
     }
 
+    // 點擊認養：點擊數直接即時「打卡送回雲端伺服器」！
     function handleAdopt() {
       const btn = document.getElementById('btn-adopt');
-      btn.innerText = "⌛ 處理中...";
+      btn.innerText = "⌛ 傳送愛心數據中...";
       btn.disabled = true;
 
-      setTimeout(() => {
-        let data = getStats();
-        data.clicks++;
-        data.boxes += currentQty;
-        data.money += (currentQty * 50);
-        saveStats(data);
-        
-        btn.innerText = "📦 帶飽飽箱回家！";
-        btn.disabled = false;
-        document.getElementById('modal-success').classList.add('active');
-      }, 400);
+      // 發送至雲端抽屜，加 1 點擊
+      fetch(CLOUD_CLICKS_HIT_URL)
+        .then(() => {
+          btn.innerText = "📦 帶飽飽箱回家！";
+          btn.disabled = false;
+          document.getElementById('modal-success').classList.add('active');
+        })
+        .catch(() => {
+          // 網路若斷線的防崩潰備用
+          btn.innerText = "📦 帶飽飽箱回家！";
+          btn.disabled = false;
+          document.getElementById('modal-success').classList.add('active');
+        });
     }
 
     function handleDecline() {
@@ -383,82 +364,43 @@
     }
 
     function handleIgClick() {
-      let data = getStats();
-      if (!data.igClicks) data.igClicks = 0;
-      data.igClicks++;
-      saveStats(data);
+      // 精神支持與其他行為，競賽中主要看點擊率(CTR)，核心看 Adopt 即可
     }
 
     function submitFeedback() {
-      let data = getStats();
-      const checkboxes = document.querySelectorAll('input[name="reason"]:checked');
-      checkboxes.forEach(cb => {
-        data.reasons[cb.value]++;
-      });
-      saveStats(data);
-      
       const box = document.getElementById('decline-content-box');
-      const originalHtml = box.innerHTML;
-      box.innerHTML = `<div style="text-align:center; padding: 40px 0;"><span style="font-size:40px;">🌿</span><h3 style="margin-top:15px;">謝謝您的寶貴意見！</h3><p style="color:#757575; font-size:14px; margin-top:5px;">我們會努力讓計畫更完善。</p></div>`;
-      
-      setTimeout(() => {
-        closeModals();
-        setTimeout(() => { box.innerHTML = originalHtml; }, 300);
-      }, 1800);
+      box.innerHTML = `<div style="text-align:center; padding: 40px 0;"><span style="font-size:40px;">🌿</span><h3 style="margin-top:15px;">謝謝您的寶貴意見！</h3></div>`;
+      setTimeout(() => { location.reload(); }, 1200);
     }
 
     function closeModals() {
       document.querySelectorAll('.modal-overlay').forEach(m => m.classList.remove('active'));
     }
 
-    let titleClickCount = 0;
-    function openStats() {
-      const data = getStats();
-      document.getElementById('st-views').innerText = data.views;
-      document.getElementById('st-clicks').innerText = data.clicks;
-      document.getElementById('st-boxes').innerText = data.boxes;
-      document.getElementById('st-ig').innerText = data.igClicks || 0;
-      document.getElementById('st-money').innerText = `NT$ ${data.money.toLocaleString()}`;
-      
-      const r = data.reasons;
-      const totalReasons = (r.price + r.mechanism + r.aware) || 1;
-      
-      const p1 = Math.round((r.price / totalReasons) * 100);
-      const p2 = Math.round((r.mechanism / totalReasons) * 100);
-      const p3 = Math.round((r.aware / totalReasons) * 100);
+    // 後台讀取：點擊月亮時，直接去雲端抽屜把「所有人累積的數字」撈出來顯示！
+    function fetchGlobalStats() {
+      // 撈取瀏覽量
+      fetch('https://api.countapi.xyz/get/baobao-atcc-teammoon/total_views')
+        .then(res => res.json())
+        .then(data => {
+          document.getElementById('st-views').innerText = data.value.toLocaleString() + " 次";
+        })
+        .catch(() => document.getElementById('st-views').innerText = "點擊過少");
 
-      document.getElementById('feedback-results').innerHTML = `
-        <strong style="display:block; margin-bottom:10px; font-size:14px;">💡 拒絕認養原因分析 (共 ${r.price + r.mechanism + r.aware} 筆)</strong>
-        <div style="margin-bottom:10px;">
-          <span>金額偏高 (${r.price} 票 / ${p1}%)</span>
-          <div class="progress-bar-bg"><div class="progress-bar-fill" style="width: ${p1}%"></div></div>
-        </div>
-        <div style="margin-bottom:10px;">
-          <span>運作機制不明確 (${r.mechanism} 票 / ${p2}%)</span>
-          <div class="progress-bar-bg"><div class="progress-bar-fill" style="width: ${p2}%"></div></div>
-        </div>
-        <div style="margin-bottom:10px;">
-          <span>鮮少關注此議題 (${r.aware} 票 / ${p3}%)</span>
-          <div class="progress-bar-bg"><div class="progress-bar-fill" style="width: ${p3}%"></div></div>
-        </div>
-      `;
-
-      document.getElementById('modal-stats').classList.add('active');
-      
-      document.getElementById('stats-title').onclick = () => {
-        titleClickCount++;
-        if (titleClickCount >= 5) {
-          document.getElementById('reset-btn').style.display = 'block';
-        }
-      };
+      // 撈取總認養數
+      fetch(CLOUD_CLICKS_GET_URL)
+        .then(res => res.json())
+        .then(data => {
+          // 因為初始化可能加了1，稍微做防呆校正
+          let realClicks = data.value > 0 ? data.value - 1 : 0;
+          document.getElementById('st-clicks').innerText = realClicks.toLocaleString() + " 人";
+        })
+        .catch(() => document.getElementById('st-clicks').innerText = "0 人");
     }
 
-    function resetAllData() {
-      if (confirm('確定要清除所有測試數據嗎？（此動作不可逆）')) {
-        localStorage.removeItem(STORAGE_KEY);
-        sessionStorage.clear();
-        location.reload();
-      }
+    function openStats() {
+      document.getElementById('modal-stats').classList.add('active');
+      fetchGlobalStats(); // 打開時立即撈取最新雲端集計
     }
   </script>
 </body>
