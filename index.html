@@ -325,23 +325,27 @@
     const STORAGE_KEY = 'refood_stats_data';
     let currentQty = 1;
 
-    function getStats() {
-      const saved = localStorage.getItem(STORAGE_KEY);
-      return saved ? JSON.parse(saved) : { views: 0, clicks: 0, boxes: 0, money: 0, igClicks: 0, reasons: { price: 0, mechanism: 0, aware: 0 } };
-    }
+   // --- 數據邏輯（安全防當掉版本） ---
+let backupData = { views: 0, clicks: 0, boxes: 0, money: 0, igClicks: 0, reasons: { price: 0, mechanism: 0, aware: 0 } };
 
-    function saveStats(data) {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
-    }
+function getStats() {
+  try {
+    const saved = localStorage.getItem(STORAGE_KEY);
+    return saved ? JSON.parse(saved) : { views: 0, clicks: 0, boxes: 0, money: 0, igClicks: 0, reasons: { price: 0, mechanism: 0, aware: 0 } };
+  } catch (e) {
+    // 如果瀏覽器封鎖了 localStorage，就用記憶體變數頂替，確保網頁不崩潰
+    console.warn("LocalStorage 被瀏覽器封鎖，啟用備用儲存機制");
+    return backupData;
+  }
+}
 
-    window.onload = () => {
-      let data = getStats();
-      if (!sessionStorage.getItem('refood_viewed')) {
-        data.views++;
-        saveStats(data);
-        sessionStorage.setItem('refood_viewed', 'true');
-      }
-    };
+function saveStats(data) {
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+  } catch (e) {
+    backupData = data;
+  }
+}
 
     function updateQty(val) {
       currentQty = Math.max(1, currentQty + val);
