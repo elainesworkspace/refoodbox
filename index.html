@@ -46,21 +46,21 @@
     }
 
     /* --- Section 1: Hero --- */
-    #hero { text-align: center; padding: 60px 0 20px; }
-    .mascot { width: 130px; animation: float 4s ease-in-out infinite; margin-bottom: 20px; object-fit: contain; }
-    .hero-title { font-size: 32px; font-weight: 900; margin-bottom: 15px; display: flex; align-items: center; justify-content: center; gap: 10px; }
+    #hero { text-align: center; padding: 50px 0 15px; }
+    .mascot { width: 120px; animation: float 4s ease-in-out infinite; margin-bottom: 15px; object-fit: contain; }
+    .hero-title { font-size: 30px; font-weight: 900; margin-bottom: 15px; display: flex; align-items: center; justify-content: center; gap: 10px; }
     .hero-title span.highlight { color: var(--green-main); border-bottom: 4px solid #A5D6A7; }
     
     .hero-speech-bubble {
       background: var(--white);
       border: 2px solid #E8F5E9;
       border-radius: 40px;
-      padding: 20px 40px;
+      padding: 15px 35px;
       display: inline-block;
       box-shadow: var(--shadow);
       position: relative;
-      font-size: 16px;
-      max-width: 80%;
+      font-size: 15px;
+      max-width: 85%;
     }
     .hero-speech-bubble::after {
       content: ''; position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
@@ -68,24 +68,24 @@
     }
 
     /* --- Section 2: Intro --- */
-    #intro { padding: 40px 0; }
+    #intro { padding: 30px 0; }
     .intro-card {
       background: #EDF7EE;
       border-radius: 24px;
-      padding: 30px;
+      padding: 25px;
       border: 1px dashed var(--green-main);
       text-align: center;
     }
-    .intro-card h2 { font-size: 22px; font-weight: 900; color: #2E7D32; margin-bottom: 15px; }
-    .intro-text { text-align: justify; font-size: 15px; color: var(--brown-text); line-height: 1.8; }
+    .intro-card h2 { font-size: 20px; font-weight: 900; color: #2E7D32; margin-bottom: 12px; }
+    .intro-text { text-align: justify; font-size: 14px; color: var(--brown-text); line-height: 1.7; }
 
     /* --- Section 3: Concepts --- */
-    .section-title { text-align: center; font-size: 28px; font-weight: 900; margin: 40px 0 30px; }
+    .section-title { text-align: center; font-size: 26px; font-weight: 900; margin: 30px 0 20px; }
     .cards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
     .concept-card {
       background: #F2EBE4;
       border-radius: 24px;
-      padding: 30px 20px;
+      padding: 25px 20px;
       text-align: center;
       transition: transform 0.3s;
       position: relative;
@@ -96,16 +96,16 @@
     .concept-card.c2::before { background: #FFB74D; }
     .concept-card.c3::before { background: #FF8A65; }
     
-    .icon-wiggle { font-size: 45px; display: block; margin-bottom: 15px; animation: wiggle 3s ease-in-out infinite; }
-    .concept-title { font-size: 18px; font-weight: 900; margin-bottom: 12px; }
-    .concept-desc { font-size: 14px; color: #6D4C41; text-align: justify; }
+    .icon-wiggle { font-size: 40px; display: block; margin-bottom: 12px; animation: wiggle 3s ease-in-out infinite; }
+    .concept-title { font-size: 17px; font-weight: 900; margin-bottom: 10px; }
+    .concept-desc { font-size: 13px; color: #6D4C41; text-align: justify; }
 
     /* --- Section 4: CTA --- */
     .cta-box {
       background: var(--white);
       border-radius: 32px;
-      padding: 40px;
-      margin: 60px 0;
+      padding: 35px 25px;
+      margin: 40px 0;
       text-align: center;
       box-shadow: var(--card-shadow);
       position: relative;
@@ -113,32 +113,32 @@
     .cta-badge {
       background: #E8F5E9; color: #2E7D32;
       padding: 5px 15px; border-radius: 20px; font-size: 13px; font-weight: 700;
-      display: inline-block; margin-bottom: 15px;
+      display: inline-block; margin-bottom: 12px;
     }
-    .price-tag { font-size: 48px; font-weight: 900; margin-bottom: 5px; }
-    .price-tag span { font-size: 18px; color: var(--gray-text); font-weight: 400; }
+    .price-tag { font-size: 44px; font-weight: 900; margin-bottom: 5px; }
+    .price-tag span { font-size: 16px; color: var(--gray-text); font-weight: 400; }
     
     .qty-selector {
       background: #F5EBE0;
       border-radius: 12px;
       display: inline-flex;
       align-items: center;
-      gap: 30px;
-      padding: 10px 30px;
-      margin: 25px 0;
+      gap: 25px;
+      padding: 8px 25px;
+      margin: 20px 0;
     }
     .qty-btn {
       background: var(--orange-main); color: white; border: none;
       width: 32px; height: 32px; border-radius: 8px; font-size: 20px; cursor: pointer;
     }
-    .qty-val { font-size: 24px; font-weight: 900; color: #2E7D32; }
+    .qty-val { font-size: 22px; font-weight: 900; color: #2E7D32; }
 
     .btn-main {
       background: linear-gradient(135deg, #FFB74D, #FF9800);
       color: white; border: none; border-radius: 50px;
-      padding: 18px 0; width: 100%; font-size: 18px; font-weight: 900;
+      padding: 16px 0; width: 100%; font-size: 17px; font-weight: 900;
       cursor: pointer; box-shadow: 0 10px 20px rgba(255, 152, 0, 0.3);
-      transition: 0.3s; display: block; margin-bottom: 15px;
+      transition: 0.3s; display: block; margin-bottom: 12px;
     }
     .btn-main:active { transform: scale(0.98); }
     .btn-sub {
@@ -147,7 +147,7 @@
     }
 
     /* --- Instagram Button --- */
-    .ig-container { text-align: center; margin-bottom: 60px; }
+    .ig-container { text-align: center; margin-bottom: 50px; }
     .ig-btn {
       display: inline-flex; align-items: center; gap: 10px;
       background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
@@ -156,25 +156,37 @@
     }
 
     /* --- Footer --- */
-    footer { background: #4E342E; color: #D7CCC8; padding: 40px 20px; text-align: center; font-size: 13px; }
+    footer { background: #4E342E; color: #D7CCC8; padding: 35px 20px; text-align: center; font-size: 13px; }
     .moon-icon { cursor: pointer; display: inline-block; margin-top: 10px; transition: 0.3s; }
     .moon-icon:hover { transform: scale(1.2) rotate(15deg); }
 
-    /* --- Modal --- */
+    /* --- Modal手機板防遮擋優化 --- */
     .modal-overlay {
       position: fixed; inset: 0; background: rgba(0,0,0,0.5); backdrop-filter: blur(5px);
-      display: none; align-items: center; justify-content: center; z-index: 1000; padding: 20px;
+      display: none; align-items: center; justify-content: center; z-index: 1000; padding: 10px;
     }
     .modal-overlay.active { display: flex; }
     .modal-content {
-      background: white; border-radius: 24px; padding: 30px; width: 100%; max-width: 900px;
-      position: relative; box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+      background: white; border-radius: 24px; padding: 20px; width: 100%; max-width: 500px;
+      max-height: 92vh; overflow-y: auto; position: relative; box-shadow: 0 20px 50px rgba(0,0,0,0.2);
     }
-    .modal-close { position: absolute; top: 15px; right: 15px; cursor: pointer; font-size: 20px; color: #aaa; }
+    .modal-close { position: absolute; top: 12px; right: 15px; cursor: pointer; font-size: 20px; color: #aaa; z-index: 10; }
     
-    .modal-body-box { background: #FDF5E6; border-radius: 16px; padding: 25px; border-left: 5px solid var(--orange-main); margin: 20px 0; font-size: 15px; text-align: justify; line-height: 1.8; }
-    .modal-body-box p { margin-bottom: 12px; }
+    .modal-body-box { 
+      background: #FDF5E6; border-radius: 16px; padding: 15px; 
+      border-left: 5px solid var(--orange-main); margin: 12px 0; 
+      font-size: 13px; text-align: justify; line-height: 1.6; 
+    }
+    .modal-body-box p { margin-bottom: 8px; }
     .modal-body-box p:last-child { margin-bottom: 0; }
+
+    .survey-group {
+      background: #F5F5F5; border-radius: 12px; padding: 12px; margin-bottom: 12px; text-align: left;
+    }
+    .survey-label { font-size: 13px; font-weight: 700; color: #2E7D32; display: block; margin-bottom: 6px; }
+    .survey-select {
+      width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #CCC; font-size: 13px; background-color: white; outline: none;
+    }
 
     /* --- Dashboard --- */
     .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 20px; }
@@ -267,43 +279,89 @@
     <span class="moon-icon" onclick="openStats()">🌙 點擊查看這台裝置的統計數據</span>
   </footer>
 
+  <!-- Modal: Success -->
   <div id="modal-success" class="modal-overlay">
     <div class="modal-content">
       <span class="modal-close" onclick="closeModals()">✕</span>
-      <div style="text-align:center; margin-bottom: 10px;">
-        <img src="https://img.icons8.com/fluency/144/box.png" style="width: 75px; object-fit: contain;" alt="Bao Bao">
-      </div>
-      <h2 style="text-align:center; margin-bottom: 15px; font-weight: 900;">感謝您的愛心！</h2>
+      <h2 style="text-align:center; font-size: 20px; font-weight: 900; color: #2E7D32;">感謝您的愛心！</h2>
       
       <div class="modal-body-box">
         <p><strong>這是一封來自 Bao Bao 的邀請 ✨</strong></p>
-        <p>嗨，我是 Bao Bao！謝謝你願意點下這一步！看到這裡，先別緊張，<strong>您的荷包非常安全</strong>，我們並不會在此體驗環節收取任何費用。</p>
-        <p>我們是正在參加 ATCC 商業競賽的團隊<strong>【代替月亮解決你的痛點】🌙</strong>。</p>
-        <p>為了驗證「大眾是否真的願意透過小額認養循環箱，來支持食物銀行配送計畫」，我們設計了這個小小的真實情境。您的這一次點擊與認養意願，對我們來說是<strong>無敵巨大的鼓勵與驗證！</strong>代表我們的商業模式與創意真的能打動人心、發揮社會影響力。</p>
-        <p>若循環箱計畫未來落地施行，我們將優先通知您！</p>
-        <p>再次感謝您的善良與支持！</p>
+        <p>嗨，我是 Bao Bao！謝謝你願意點下這一步！您的荷包非常安全，我們並不會在此體驗環節收取任何費用。</p>
+        <p>我們是正在跨界參加商業競賽的團隊【代替月亮解決你的痛點】🌙。為確保市場驗證數據的嚴謹性，本專案需收集匿名樣本進行客群分析，所有資料僅供競賽學術統計使用，請安心填寫！您的支持對我們來說是無敵巨大的鼓勵！</p>
+      </div>
+
+      <!-- 下拉式問卷區塊 (已刪除十年唯一階) -->
+      <div class="survey-group">
+        <label class="survey-label">👤 您的性別</label>
+        <select class="survey-select" id="success-gender">
+          <option value="未提供">請選擇性別</option>
+          <option value="女性">女性</option>
+          <option value="男性">男性</option>
+          <option value="多元性別/不便透露">多元性別 / 不便透露</option>
+        </select>
+      </div>
+
+      <div class="survey-group">
+        <label class="survey-label">🎂 您的年齡區段</label>
+        <select class="survey-select" id="success-age">
+          <option value="未提供">請選擇年齡區段</option>
+          <option value="10-19歲">10 - 19 歲</option>
+          <option value="20-29歲">20 - 29 歲</option>
+          <option value="30-39歲">30 - 39 歲</option>
+          <option value="40-49歲">40 - 49 歲</option>
+          <option value="50-59歲">50 - 59 歲</option>
+          <option value="60歲以上">60 歲以上</option>
+        </select>
       </div>
       
-      <button class="btn-main" onclick="closeModals()">💖 謝謝你，Bao Bao 我知道了！</button>
+      <button class="btn-main" onclick="submitSuccessData()">💖 謝謝你，Bao Bao 我知道了！</button>
     </div>
   </div>
 
+  <!-- Modal: Decline -->
   <div id="modal-decline" class="modal-overlay">
-    <div class="modal-content" id="decline-content-box" style="max-width: 500px;">
+    <div class="modal-content" id="decline-content-box">
       <span class="modal-close" onclick="closeModals()">✕</span>
-      <div style="text-align:center; font-size: 40px; margin-bottom: 10px;">🦖</div>
-      <h2 style="text-align:center; margin-bottom: 15px;">沒關係的！</h2>
-      <p style="font-size:14px; text-align:center; margin-bottom:15px;">您的回饋能幫我們變得更好，是什麼原因讓您目前不想認養呢？</p>
-      
-      <div style="margin-bottom: 20px;">
-        <label style="display:block; margin-bottom:10px; cursor:pointer;"><input type="checkbox" name="reason" value="price"> 認養金額（50元）累積起來有點太高了</label>
-        <label style="display:block; margin-bottom:10px; cursor:pointer;"><input type="checkbox" name="reason" value="mechanism"> 不太清楚循環箱實際上是怎麼運作的</label>
-        <label style="display:block; margin-bottom:10px; cursor:pointer;"><input type="checkbox" name="reason" value="aware"> 平常比較少接觸食物銀行的議題</label>
+      <h2 style="text-align:center; font-size: 20px; font-weight: 900; color: #C62828;">沒關係的！</h2>
+      <p style="font-size:13px; text-align:center; margin: 8px 0 12px; color: var(--gray-text);">
+        為協助競賽數據進行客群落點交叉分析，懇請撥冗勾選以下匿名基本資料與原因：
+      </p>
+
+      <div class="survey-group" style="padding: 8px 12px; margin-bottom: 8px;">
+        <label class="survey-label" style="margin-bottom: 4px;">👤 您的性別</label>
+        <select class="survey-select" id="decline-gender" style="padding: 6px 10px;">
+          <option value="未提供">請選擇性別</option>
+          <option value="女性">女性</option>
+          <option value="男性">男性</option>
+          <option value="多元性別/不便透露">多元性別 / 不便透露</option>
+        </select>
       </div>
-      <button class="btn-main" onclick="submitFeedback()">🌿 送出回饋</button>
+
+      <div class="survey-group" style="padding: 8px 12px; margin-bottom: 8px;">
+        <label class="survey-label" style="margin-bottom: 4px;">🎂 您的年齡區段</label>
+        <select class="survey-select" id="decline-age" style="padding: 6px 10px;">
+          <option value="未提供">請選擇年齡區段</option>
+          <option value="10-19歲">10 - 19 歲</option>
+          <option value="20-29歲">20 - 29 歲</option>
+          <option value="30-39歲">30 - 39 歲</option>
+          <option value="40-49歲">40 - 49 歲</option>
+          <option value="50-59歲">50 - 59 歲</option>
+          <option value="60歲以上">60 歲以上</option>
+        </select>
+      </div>
+      
+      <div style="margin: 12px 5px; font-size: 13px; text-align: left;">
+        <strong style="color: #5D4037; display:block; margin-bottom: 6px;">💡 是什麼原因讓您目前不想認養呢？</strong>
+        <label style="display:block; margin-bottom:8px; cursor:pointer;"><input type="checkbox" name="reason" value="price"> 認養金額（50元）累積起來有點太高了</label>
+        <label style="display:block; margin-bottom:8px; cursor:pointer;"><input type="checkbox" name="reason" value="mechanism"> 不太清楚循環箱實際上是怎麼運作的</label>
+        <label style="display:block; margin-bottom:8px; cursor:pointer;"><input type="checkbox" name="reason" value="aware"> 平常比較少接觸食物銀行的議題</label>
+      </div>
+      <button class="btn-main" onclick="submitFeedbackData()">🌿 送出回饋</button>
     </div>
   </div>
 
+  <!-- Modal: Stats -->
   <div id="modal-stats" class="modal-overlay">
     <div class="modal-content" style="max-width: 550px;">
       <span class="modal-close" onclick="closeModals()">✕</span>
@@ -320,14 +378,10 @@
     </div>
   </div>
 
-  <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;" onload="if(typeof iframeLoaded !== 'undefined') iframeLoaded();"></iframe>
-
   <script>
-    const STORAGE_KEY = 'refood_stats_data_v2';
+    const STORAGE_KEY = 'refood_stats_data_v3';
     let currentQty = 1;
-
-    // 💡 串接全網匯總說明：如果你們想要把所有人的數據直接收進同一個 Google 試算表，
-    // 請看下方的說明步驟。目前維持本地防崩潰儲存，保證點擊流暢絕不卡死！
+    let titleClickCount = 0;
     let backupData = { views: 0, clicks: 0, boxes: 0, money: 0, igClicks: 0, reasons: { price: 0, mechanism: 0, aware: 0 } };
 
     function getStats() {
@@ -349,13 +403,11 @@
 
     window.onload = () => {
       let data = getStats();
-      if (!sessionStorage.getItem('refood_viewed_v2')) {
+      if (!sessionStorage.getItem('refood_viewed_v3')) {
         data.views++;
         saveStats(data);
-        sessionStorage.setItem('refood_viewed_v2', 'true');
-        
-        // 【雲端數據發送點 1】：網頁被瀏覽
-        sendToGoogleForm("網頁瀏覽量", 1, 0);
+        sessionStorage.setItem('refood_viewed_v3', 'true');
+        sendToGoogleForm("網頁瀏覽量", 1, 0, "未知", "未知");
       }
     };
 
@@ -366,24 +418,23 @@
     }
 
     function handleAdopt() {
-      const btn = document.getElementById('btn-adopt');
-      btn.innerText = "⌛ 處理中...";
-      btn.disabled = true;
+      document.getElementById('modal-success').classList.add('active');
+    }
+
+    function submitSuccessData() {
+      const gender = document.getElementById('success-gender').value;
+      const age = document.getElementById('success-age').value;
 
       let data = getStats();
       data.clicks++;
       data.boxes += currentQty;
       data.money += (currentQty * 50);
       saveStats(data);
-      
-      // 【雲端數據發送點 2】：使用者點擊認養
-      sendToGoogleForm("認養點擊", currentQty, currentQty * 50);
 
-      setTimeout(() => {
-        btn.innerText = "📦 帶飽飽箱回家！";
-        btn.disabled = false;
-        document.getElementById('modal-success').classList.add('active');
-      }, 300);
+      sendToGoogleForm("認養點擊", currentQty, currentQty * 50, gender, age);
+
+      closeModals();
+      alert("感謝您的善良與珍貴的數據回饋！");
     }
 
     function handleDecline() {
@@ -395,43 +446,52 @@
       if (!data.igClicks) data.igClicks = 0;
       data.igClicks++;
       saveStats(data);
-      sendToGoogleForm("IG按鈕點擊", 1, 0);
+      sendToGoogleForm("IG按鈕點擊", 1, 0, "未知", "未知");
     }
 
-    function submitFeedback() {
+    function submitFeedbackData() {
+      const gender = document.getElementById('decline-gender').value;
+      const age = document.getElementById('decline-age').value;
+
       let data = getStats();
       const checkboxes = document.querySelectorAll('input[name="reason"]:checked');
+      
+      let reasonString = "拒絕認養原因: ";
       checkboxes.forEach(cb => {
         data.reasons[cb.value]++;
-        sendToGoogleForm("拒絕原因: " + cb.value, 1, 0);
+        reasonString += cb.value + " | ";
       });
       saveStats(data);
+
+      sendToGoogleForm(reasonString, 1, 0, gender, age);
       
       const box = document.getElementById('decline-content-box');
-      const originalHtml = box.innerHTML;
       box.innerHTML = `<div style="text-align:center; padding: 40px 0;"><span style="font-size:40px;">🌿</span><h3 style="margin-top:15px;">謝謝您的寶貴意見！</h3><p style="color:#757575; font-size:14px; margin-top:5px;">我們會努力讓計畫更完善。</p></div>`;
       
       setTimeout(() => {
         closeModals();
-        setTimeout(() => { box.innerHTML = originalHtml; }, 300);
-      }, 1800);
+        location.reload();
+      }, 1500);
     }
 
-    // 🚀【核心大絕招：無痛連通全網數據】
-    // 只要完成下方說明的 3 個步驟，所有人的數據就會自動飛進你們團隊的 Google 試算表！
-    function sendToGoogleForm(actionType, qty, money) {
-      // ⚠️ 步驟：如果你們建立了 Google 表單，請將下方的網址與 entry 代碼換掉即可連通
+    function sendToGoogleForm(actionType, qty, money, gender, age) {
       const formActionUrl = 'https://docs.google.com/forms/d/e/1FAIpQLScJXp2jWyvOs1O6sEOQmXWpZKq9v-PxjxUmaosH2nY9LciYKw/formResponse'; 
-      const entry_action = 'entry.534978797'; // 欄位1：動作類型
-      const entry_qty = 'entry.1148743422';    // 欄位2：數量/箱數
-      const entry_money = 'entry.427346147';  // 欄位3：金額
+      const entry_action = 'entry.534978797';  
+      const entry_qty = 'entry.1148743422';     
+      const entry_money = 'entry.427346147';   
 
-      if(formActionUrl.includes('XXXXXXXXXXXXXX')) return; // 防呆：沒設定時只走本地儲存
+      // ⚠️ 請記得在下方填入你們新取得的性別、年齡 entry 號碼
+      const entry_gender = 'entry.322017667';   
+      const entry_age = 'entry.935490941';      
+
+      if(entry_gender.includes('XXXXXXXX')) return; 
 
       const formData = new FormData();
       formData.append(entry_action, actionType);
       formData.append(entry_qty, qty);
       formData.append(entry_money, money);
+      formData.append(entry_gender, gender);
+      formData.append(entry_age, age);
 
       fetch(formActionUrl, { method: 'POST', body: formData, mode: 'no-cors' }).catch(() => {});
     }
